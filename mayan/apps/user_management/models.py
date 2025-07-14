@@ -43,3 +43,4 @@ class UserOptions(models.Model):
     )
     def save(self, *args, **kwargs):
         return super().save(*args, **kwargs)
+    

@@ -135,7 +135,7 @@ class UserManagementApp(MayanAppConfig):
             name='get_groups', value=method_user_get_groups
         )
         User.add_to_class(
-            name='groups_add', value=method_user_groups_add
+            name='gro  ups_add', value=method_user_groups_add
         )
         User.add_to_class(
             name='groups_remove', value=method_user_groups_remove
