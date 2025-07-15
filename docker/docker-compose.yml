@@ -26,14 +26,43 @@ networks:
     internal: false
   traefik: {}
 
+# services:
+#   app:
+#     <<: *mayan-container
+
+#     build:
+#       context: ../ # Points to /l/Mayan-EDMS-master/Mayan-EDMS-master/
+#       dockerfile: ./Dockerfile # Points to the Dockerfile you created
+    
+#     profiles:
+#       - all_in_one
+#     # Disable ports if using Traefik.
+#     ports:
+#       - "8000"
+
+#     volumes:
+#       # This example assumes you want to mount the *entire* Mayan-EDMS-master folder
+#       # into a specific location within the container, which you would then configure
+#       # Mayan's Python path to use (as in the Dockerfile example I gave).
+#       # Replace /your/local/code/path with /l/Mayan-EDMS-master/Mayan-EDMS-master
+#       # And /opt/mayan-edms-source with the path you are copying to inside Dockerfile
+#       # - /l/Mayan-EDMS-master/Mayan-EDMS-master:/opt/mayan-edms/source
+#       - ${MAYAN_APP_VOLUME:-app}:/var/lib/mayan # Keep the original for data persistence
+
 services:
   app:
     <<: *mayan-container
+    build:
+      context: ../         # <--- Change this from '../' to '.'
+      dockerfile: ./docker/Dockerfile # <--- Change this from './docker/Dockerfile' to 'Dockerfile'
     profiles:
       - all_in_one
-    # Disable ports if using Traefik.
     ports:
-      - "80:8000"
+      - "8000"
+    volumes:
+      - ${MAYAN_APP_VOLUME:-app}:/var/lib/mayan
+      # If you are still using the volume mount for development, keep it:
+      # - /l/Mayan-EDMS-master/Mayan-EDMS-master:/opt/mayan-edms/source
 
   elasticsearch:
     environment:
@@ -127,17 +156,17 @@ services:
       - "traefik.enable=true"
       - "traefik.http.middlewares.mayan_redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.mayan_redirect.redirectscheme.permanent=false"
-      - "traefik.http.routers.mayan_frontend.rule=Host(`${MAYAN_TRAEFIK_EXTERNAL_DOMAIN}`)"
+      - "traefik.http.routers.mayan_frontend.rule=Host(${MAYAN_TRAEFIK_EXTERNAL_DOMAIN})"
       - "traefik.http.routers.mayan_frontend.entrypoints=http"
       - "traefik.http.routers.mayan_frontend.middlewares=mayan_redirect"
-      - "traefik.http.routers.mayan_frontend_https.rule=Host(`${MAYAN_TRAEFIK_EXTERNAL_DOMAIN}`)"
+      - "traefik.http.routers.mayan_frontend_https.rule=Host(${MAYAN_TRAEFIK_EXTERNAL_DOMAIN})"
       - "traefik.http.routers.mayan_frontend_https.entrypoints=https"
       - "traefik.http.routers.mayan_frontend_https.tls=true"
       - "traefik.http.routers.mayan_frontend_https.tls.certresolver=letsencrypt"
       - "traefik.http.services.mayan_frontend.loadbalancer.server.port=8000"
     # Disable ports if using Traefik.
     ports:
-      - "80:8000"
+      - "8000:8000"
     profiles:
       - extra_frontend
 
@@ -238,7 +267,7 @@ services:
     labels:
       - "traefik.enable=${MAYAN_TRAEFIK_RABBITMQ_ENABLE:-false}"
       - "traefik.http.routers.mayan_frontend_https.tls=true"
-      - "traefik.http.routers.mayan_frontend.rule=Host(`${MAYAN_TRAEFIK_EXTERNAL_DOMAIN}`)"
+      - "traefik.http.routers.mayan_frontend.rule=Host(${MAYAN_TRAEFIK_EXTERNAL_DOMAIN})"
       - "traefik.http.routers.mayan_frontend.entrypoints=:15672"
     networks:
       - mayan

@@ -38,7 +38,7 @@ def find_packages(directory):
     # an easy way to do this.
     packages, data_files = [], []
     root_dir = os.path.dirname(__file__)
-    if root_dir != '':
+    if root_dir != '': 
         os.chdir(root_dir)
 
     for dirpath, dirnames, filenames in os.walk(directory):

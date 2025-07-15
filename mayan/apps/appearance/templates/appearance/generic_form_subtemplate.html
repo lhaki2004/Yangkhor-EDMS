@@ -68,7 +68,26 @@
                 {% endif %}
             {% endwith %}
         {% else %}
-            {% include 'appearance/generic_form_instance.html' %}
+            {# Custom field rendering for 'role' #}
+            {% for field in form.visible_fields %}
+                {% if field.name == "role" %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">User Role</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endif %}
         {% if not read_only %}
             {% if not form.management_form or wizard.management_form or form.forms %}
