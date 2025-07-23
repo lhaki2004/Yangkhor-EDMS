@@ -1,0 +1,18 @@
+mayan: starting entrypoint.sh
+Connection attempt #1 to: port postgresql:5432; Connected.
+Connection attempt #1 to: port rabbitmq:5672; Connected.
+Connection attempt #1 to: port redis:6379; Connected.
+mayan: update_uid_gid()
+usermod: no changes
+mayan: os_package_installs()
+mayan: pip_installs()
+mayan: perform_upgrade()
+mayan: starting entrypoint.sh
+Connection attempt #1 to: port postgresql:5432; Connected.
+Connection attempt #1 to: port rabbitmq:5672; Connected.
+Connection attempt #1 to: port redis:6379; Connected.
+mayan: update_uid_gid()
+usermod: no changes
+mayan: os_package_installs()
+mayan: pip_installs()
+mayan: perform_upgrade()

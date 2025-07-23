@@ -9,6 +9,9 @@ from django.utils.translation import ugettext_lazy as _
 from mayan.apps.documents.classes import DocumentFileAction
 from mayan.apps.documents.forms.document_forms import DocumentForm
 from mayan.apps.views.forms import DynamicModelForm
+from mayan.apps.documents.models.document_type_models import DocumentType
+from mayan.apps.tags.models import Tag
+from mayan.apps.cabinets.models import Cabinet
 
 from .classes import SourceBackend
 from .models import Source
@@ -103,3 +106,10 @@ class WebFormUploadFormHTML5(UploadBaseForm):
             attrs={'class': 'hidden', 'hidden': True}
         )
     )
+
+
+class DocumentSingleUploadForm(forms.Form):
+    document_type = forms.ModelChoiceField(queryset=DocumentType.objects.all(), label='Document type')
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), required=False, label='Tags')
+    cabinets = forms.ModelMultipleChoiceField(queryset=Cabinet.objects.all(), required=False, label='Cabinets')
+    file = forms.FileField(label='File to upload')

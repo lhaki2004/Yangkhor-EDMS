@@ -1,17 +1,14 @@
-<div style="border: 3px solid red; padding: 10px; margin-bottom: 20px;">
-    <h2 style="color: red;">[TEST] Dashboard Area</h2>
-    {% if not dashboard_skip_label %}
-        <h4>
-            {{ dashboard.label }}
-        </h4>
-        <hr>
-    {% endif %}
+{% if not dashboard_skip_label %}
+    <h4>
+        {{ dashboard.label }}
+    </h4>
+    <hr>
+{% endif %}
 
-    <div class="well">
-        <div class="row">
-            {% for widget in widgets %}
-                {{ widget }}
-            {% endfor %}
-        </div>
+<div class="well">
+    <div class="row">
+        {% for widget in widgets %}
+            {{ widget }}
+        {% endfor %}
     </div>
 </div>
