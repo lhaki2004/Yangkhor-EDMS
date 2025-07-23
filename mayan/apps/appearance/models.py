@@ -31,7 +31,7 @@ class Theme(models.Model):
         verbose_name = _('Theme')
         verbose_name_plural = _('Themes')
 
-    def __str__(self):
+    def _str_(self):
         return force_text(s=self.label)
 
     def get_absolute_url(self):
@@ -73,7 +73,7 @@ class UserThemeSetting(models.Model):
         verbose_name = _('User theme setting')
         verbose_name_plural = _('User theme settings')
 
-    def __str__(self):
+    def _str_(self):
         return force_text(s=self.user)
 
     @method_event(
@@ -85,3 +85,4 @@ class UserThemeSetting(models.Model):
     )
     def save(self, *args, **kwargs):
         return super().save(*args, **kwargs)
+    

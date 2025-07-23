@@ -3,6 +3,8 @@ import logging
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
+from django.urls import reverse_lazy
+from django.views.generic.edit import FormView
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
@@ -12,6 +14,7 @@ from mayan.apps.documents.permissions import permission_document_create
 from mayan.apps.views.mixins import ExternalObjectViewMixin
 
 from ..forms import NewDocumentForm
+from ..forms import DocumentSingleUploadForm
 from ..icons import icon_document_create_multiple
 from ..models import Source
 
@@ -115,3 +118,16 @@ class DocumentUploadInteractiveView(ExternalObjectViewMixin, UploadBaseView):
                 'document_type_id', self.request.POST.get('document_type_id')
             )
         }
+
+
+class DocumentCreateSinglePageView(FormView):
+    template_name = 'appearance/document_single_upload.html'
+    form_class = DocumentSingleUploadForm
+    success_url = reverse_lazy('documents:document_list')
+
+    def form_valid(self, form):
+        # Here you would implement the logic to create the document, assign tags/cabinets, and save the file.
+        # For now, just print cleaned_data for demonstration.
+        print(form.cleaned_data)
+        # TODO: Implement actual document creation logic.
+        return super().form_valid(form)

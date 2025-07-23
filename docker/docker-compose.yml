@@ -59,8 +59,8 @@ services:
       - all_in_one
     ports:
       - "8000"
-    volumes:
-      - ${MAYAN_APP_VOLUME:-app}:/var/lib/mayan
+    # volumes:
+    #   - ${MAYAN_APP_VOLUME:-app}:/var/lib/mayan
       # If you are still using the volume mount for development, keep it:
       # - /l/Mayan-EDMS-master/Mayan-EDMS-master:/opt/mayan-edms/source
 
@@ -232,7 +232,7 @@ services:
     profiles:
       - extra_worker_d
 
-  worker_custom_queue:
+  worker_custom_queue: 
     <<: *mayan-container
     command:
       - /bin/sh

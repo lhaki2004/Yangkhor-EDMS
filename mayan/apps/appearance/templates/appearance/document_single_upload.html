@@ -1,0 +1,30 @@
+{% extends 'appearance/base.html' %}
+{% load i18n %}
+
+{% block title %}Single Page Document Upload{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 600px; margin-top: 40px;">
+    <h2>{% trans 'Single Page Document Upload' %}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.document_type.label_tag }}
+            {{ form.document_type }}
+        </div>
+        <div class="form-group">
+            {{ form.tags.label_tag }}
+            {{ form.tags }}
+        </div>
+        <div class="form-group">
+            {{ form.cabinets.label_tag }}
+            {{ form.cabinets }}
+        </div>
+        <div class="form-group">
+            {{ form.file.label_tag }}
+            {{ form.file }}
+        </div>
+        <button type="submit" class="btn btn-primary">{% trans 'Upload' %}</button>
+    </form>
+</div>
+{% endblock %} 

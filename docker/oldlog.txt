@@ -1,0 +1,148 @@
+mayan: starting entrypoint.sh
+Connection attempt #1 to: port postgresql:5432; [Errno 111] Connection refused
+Connection attempt #2 to: port postgresql:5432; Connected.
+Connection attempt #1 to: port rabbitmq:5672; [Errno 111] Connection refused
+Connection attempt #2 to: port rabbitmq:5672; [Errno 111] Connection refused
+Connection attempt #3 to: port rabbitmq:5672; [Errno 111] Connection refused
+Connection attempt #4 to: port rabbitmq:5672; [Errno 111] Connection refused
+Connection attempt #5 to: port rabbitmq:5672; [Errno 111] Connection refused
+Connection attempt #6 to: port rabbitmq:5672; [Errno 111] Connection refused
+Connection attempt #7 to: port rabbitmq:5672; Connected.
+Connection attempt #1 to: port redis:6379; Connected.
+mayan: update_uid_gid()
+usermod: no changes
+mayan: os_package_installs()
+mayan: pip_installs()
+mayan: perform_upgrade()
+Operations to perform:
+  Apply all migrations: acls, actstream, admin, announcements, appearance, auth, authentication_otp, authtoken, autoadmin, cabinets, checkouts, common, contenttypes, converter, django_celery_beat, django_gpg, document_comments, document_indexing, document_parsing, document_signatures, document_states, documents, duplicates, dynamic_search, events, file_caching, file_metadata, linking, locales, lock_manager, logging, mailer, mayan_statistics, messaging, metadata, motd, ocr, permissions, quotas, sessions, signature_captures, sites, sources, storage, tags, user_management, web_links
+Running migrations:
+  No migrations to apply.
+mayan-edms: run_all
+2025-07-15 05:42:11,685 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-07-15 05:42:11,685 WARN For [program:mayan-edms-gunicorn], redirect_stderr=true but stderr_logfile has also been set to a filename, the filename has been ignored
+2025-07-15 05:42:11,685 INFO Included extra file "/etc/supervisor/conf.d/mayan-edms.conf" during parsing
+2025-07-15 05:42:11,689 INFO RPC interface 'supervisor' initialized
+2025-07-15 05:42:11,689 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-07-15 05:42:11,689 INFO supervisord started with pid 29
+2025-07-15 05:42:12,692 INFO spawned: 'mayan-edms-celery-beat' with pid 31
+2025-07-15 05:42:12,695 INFO spawned: 'mayan-edms-worker_a' with pid 32
+2025-07-15 05:42:12,697 INFO spawned: 'mayan-edms-worker_b' with pid 33
+2025-07-15 05:42:12,700 INFO spawned: 'mayan-edms-worker_c' with pid 34
+2025-07-15 05:42:12,702 INFO spawned: 'mayan-edms-worker_d' with pid 35
+2025-07-15 05:42:12,705 INFO spawned: 'mayan-edms-gunicorn' with pid 36
+[2025-07-15 05:42:12 +0000] [36] [INFO] Starting gunicorn 20.1.0
+[2025-07-15 05:42:12 +0000] [36] [INFO] Listening at: http://0.0.0.0:8000 (36)
+[2025-07-15 05:42:12 +0000] [36] [INFO] Using worker: sync
+[2025-07-15 05:42:12 +0000] [37] [INFO] Booting worker with pid: 37
+[2025-07-15 05:42:12 +0000] [38] [INFO] Booting worker with pid: 38
+[2025-07-15 05:42:12 +0000] [39] [INFO] Booting worker with pid: 39
+celery beat v5.2.3 (dawn-chorus) is starting.
+2025-07-15 05:42:14,085 INFO success: mayan-edms-gunicorn entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-15 05:42:23,096 INFO success: mayan-edms-celery-beat entered RUNNING state, process has stayed up for > than 10 seconds (startsecs)
+2025-07-15 05:42:23,096 INFO success: mayan-edms-worker_a entered RUNNING state, process has stayed up for > than 10 seconds (startsecs)
+2025-07-15 05:42:23,096 INFO success: mayan-edms-worker_b entered RUNNING state, process has stayed up for > than 10 seconds (startsecs)
+2025-07-15 05:42:23,096 INFO success: mayan-edms-worker_c entered RUNNING state, process has stayed up for > than 10 seconds (startsecs)
+2025-07-15 05:42:23,096 INFO success: mayan-edms-worker_d entered RUNNING state, process has stayed up for > than 10 seconds (startsecs)
+ 
+ -------------- celery@mayan-edms-worker_a.9d0da128c607 v5.2.3 (dawn-chorus)
+--- ***** ----- 
+-- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31 2025-07-15 05:42:42
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         mayan:0x7050cde62c10
+- ** ---------- .> transport:   amqp://mayan:**@rabbitmq:5672/mayan
+- ** ---------- .> results:     redis://:**@redis:6379/1
+- *** --- * --- .> concurrency: 16 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> converter        exchange=converter(direct) key=converter
+                .> sources_fast     exchange=sources_fast(direct) key=sources_fast
+
+ 
+ -------------- celery@mayan-edms-worker_c.9d0da128c607 v5.2.3 (dawn-chorus)
+--- ***** ----- 
+-- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31 2025-07-15 05:42:42
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         mayan:0x7e387768ac10
+- ** ---------- .> transport:   amqp://mayan:**@rabbitmq:5672/mayan
+- ** ---------- .> results:     redis://:**@redis:6379/1
+- *** --- * --- .> concurrency: 16 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> checkouts_periodic exchange=checkouts_periodic(direct) key=checkouts_periodic
+                .> documents_periodic exchange=documents_periodic(direct) key=documents_periodic
+                .> events           exchange=events(direct) key=events
+                .> mailing          exchange=mailing(direct) key=mailing
+                .> signatures       exchange=signatures(direct) key=signatures
+                .> sources_periodic exchange=sources_periodic(direct) key=sources_periodic
+                .> statistics       exchange=statistics(direct) key=statistics
+                .> uploads          exchange=uploads(direct) key=uploads
+
+__    -    ... __   -        _
+LocalTime -> 2025-07-15 05:42:42
+Configuration ->
+    . broker -> amqp://mayan:**@rabbitmq:5672/mayan
+    . loader -> celery.loaders.app.AppLoader
+    . scheduler -> django_celery_beat.schedulers.DatabaseScheduler
+
+    . logfile -> [stderr]@%ERROR
+    . maxinterval -> 5.00 seconds (5s)
+ 
+ -------------- celery@mayan-edms-worker_d.9d0da128c607 v5.2.3 (dawn-chorus)
+--- ***** ----- 
+-- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31 2025-07-15 05:42:42
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         mayan:0x75fd24346c10
+- ** ---------- .> transport:   amqp://mayan:**@rabbitmq:5672/mayan
+- ** ---------- .> results:     redis://:**@redis:6379/1
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> ocr              exchange=ocr(direct) key=ocr
+                .> storage_periodic exchange=storage_periodic(direct) key=storage_periodic
+                .> tools            exchange=tools(direct) key=tools
+
+ 
+ -------------- celery@mayan-edms-worker_b.9d0da128c607 v5.2.3 (dawn-chorus)
+--- ***** ----- 
+-- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31 2025-07-15 05:42:43
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         mayan:0x719c16082c10
+- ** ---------- .> transport:   amqp://mayan:**@rabbitmq:5672/mayan
+- ** ---------- .> results:     redis://:**@redis:6379/1
+- *** --- * --- .> concurrency: 16 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> document_states_medium exchange=document_states_medium(direct) key=document_states_medium
+                .> documents        exchange=documents(direct) key=documents
+                .> duplicates       exchange=duplicates(direct) key=duplicates
+                .> file_caching     exchange=file_caching(direct) key=file_caching
+                .> file_metadata    exchange=file_metadata(direct) key=file_metadata
+                .> indexing         exchange=indexing(direct) key=indexing
+                .> metadata         exchange=metadata(direct) key=metadata
+                .> parsing          exchange=parsing(direct) key=parsing
+                .> search           exchange=search(direct) key=search
+                .> search_slow      exchange=search_slow(direct) key=search_slow
+                .> sources          exchange=sources(direct) key=sources
+
+mayan: starting entrypoint.sh
+Connection attempt #1 to: port postgresql:5432; Connected.
+Connection attempt #1 to: port rabbitmq:5672; Connected.
+Connection attempt #1 to: port redis:6379; Connected.
+mayan: update_uid_gid()
+usermod: no changes
+mayan: os_package_installs()
+mayan: pip_installs()
+mayan: perform_upgrade()
+Operations to perform:
+  Apply all migrations: acls, actstream, admin, announcements, appearance, auth, authentication_otp, authtoken, autoadmin, cabinets, checkouts, common, contenttypes, converter, django_celery_beat, django_gpg, document_comments, document_indexing, document_parsing, document_signatures, document_states, documents, duplicates, dynamic_search, events, file_caching, file_metadata, linking, locales, lock_manager, logging, mailer, mayan_statistics, messaging, metadata, motd, ocr, permissions, quotas, sessions, signature_captures, sites, sources, storage, tags, user_management, web_links
+Running migrations:
+  No migrations to apply.

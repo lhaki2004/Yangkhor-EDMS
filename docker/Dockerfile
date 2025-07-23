@@ -19,12 +19,12 @@ ENV MAYAN_LOCK_MANAGER_BACKEND_ARGUMENTS="{'redis_url':'redis://:mayanredispassw
 
 # THIS IS THE CRUCIAL COPY ADJUSTMENT:
 # Since context is now '.', and your 'mayan' source code folder is in the parent directory of 'docker',
-# you need to explicitly go up one level to copy it.
+# you need to explicitly go up one level to copy it. 
 COPY mayan /opt/mayan-edms/source/mayan/
-
+ 
 # Set the Python path to include your copied source code.
 # This makes Python look for modules in /opt/mayan-edms/source/
 ENV PYTHONPATH="/opt/mayan-edms/source/:$PYTHONPATH"
 
-# Set the working directory within the containerization(edited)
+# Set the working directory within the container
 WORKDIR /opt/mayan-edms/

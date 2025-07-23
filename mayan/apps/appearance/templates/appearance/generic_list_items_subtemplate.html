@@ -22,7 +22,7 @@
             <div class="well center-block">
                 <div class="row row-items">
                     {% for object in object_list %}
-                        <div class="{{ column_class|default:'col-xs-12 col-sm-4 col-md-3 col-lg-2' }}">
+                        <div class="doc-square-col">
                             <div class="panel panel-primary panel-item">
                                 <div class="panel-heading">
                                     <div class="form-group">
@@ -51,12 +51,12 @@
                                 <div class="panel-body">
                                     {% if not hide_columns %}
                                         {% for column in source_columns_non_identifier %}
-                                            <div class="text-center" style="">{% navigation_source_column_resolve column=column as column_value %}{% if column_value != '' %}{% if column.include_label %}<span class="source-column-label">{{ column.label }}</span>: {% endif %}{{ column_value }}{% endif %}</div>
+                                            <div class="text-left" style="">{% navigation_source_column_resolve column=column as column_value %}{% if column_value != '' %}{% if column.include_label %}<span class="source-column-label">{{ column.label }}</span>: {% endif %}{{ column_value }}{% endif %}</div>
                                         {% endfor %}
                                     {% endif %}
 
                                     {% for column in extra_columns %}
-                                        <div class="text-center"><span class="list-extra-column-label">{{ column.name }}</span>: {{ object|common_object_property:column.attribute }}</div>
+                                        <div class="text-left"><span class="list-extra-column-label">{{ column.name }}</span>: {{ object|common_object_property:column.attribute }}</div>
                                     {% endfor %}
 
                                     {% if not hide_links %}
@@ -72,7 +72,7 @@
                                             {% endwith %}
                                         {% endif %}
                                     {% endif %}
-                                </div>
+                                </div> 
                             </div>
                         </div>
                     {% endfor %}
@@ -81,6 +81,91 @@
         {% endif %}
     </div>
 </div>
+
+<style>
+  .row-items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .doc-square-col {
+    width: 20%;
+    padding: 8px;
+    box-sizing: border-box;
+    display: flex;
+  }
+  .panel-item {
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+  }
+  @media (max-width: 900px) {
+    .doc-square-col { width: 33.33%; }
+  }
+  @media (max-width: 600px) {
+    .doc-square-col { width: 50%; }
+  }
+  @media (max-width: 400px) {
+    .doc-square-col { width: 100%; }
+  }
+  .doc-image-area {
+    height: 140px;
+    min-height: 140px;
+    max-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+  .doc-image-area img,
+  .doc-image-area .fa-layers {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .doc-image-area .instance-image-widget {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .doc-image-area .instance-image-widget img,
+  .doc-image-area .instance-image-widget .spinner-container {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+  }
+
+.document-badges {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 16px;
+}
+
+.doc-badge {
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: #223142; /* dark blue like sidebar */
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.doc-badge:not(.active):hover {
+  background: #2d425c;
+  color: #fff;
+}
+
+.doc-badge.active {
+  background: #fff;
+  color: #223142;
+  border: 2px solid #223142;
+  font-weight: bold;
+}
+</style>
 
 <script>
     'use strict';
@@ -91,3 +176,4 @@
         $('.row-items > [class*="col"] .panel-item').matchHeight();
     });
 </script>
+ 
