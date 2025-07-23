@@ -53,8 +53,8 @@ services:
   app:
     <<: *mayan-container
     build:
-      context: ../         # <--- Change this from '../' to '.'
-      dockerfile: ./docker/Dockerfile # <--- Change this from './docker/Dockerfile' to 'Dockerfile'
+      context: ../    
+      dockerfile: ./docker/Dockerfile
     profiles:
       - all_in_one
     ports:

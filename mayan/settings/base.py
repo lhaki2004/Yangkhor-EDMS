@@ -370,5 +370,5 @@ if not DATABASES:
                 'NAME': os.path.join(MEDIA_ROOT, 'db.sqlite3')  # NOQA: F821
             }
         }
-
-# DEBUG = True
+        
+DEBUG = True
