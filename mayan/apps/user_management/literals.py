@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 
-FIELDS_ALL = ('username', 'first_name', 'last_name', 'email', 'is_active')
+FIELDS_ALL = ('username', 'first_name', 'last_name', 'email', 'is_active', 'is_staff')
 FIELDS_USER = ('first_name', 'last_name')
 
 FIELDSETS_ALL = (
@@ -14,7 +14,7 @@ FIELDSETS_ALL = (
         },
     ), (
         _('Attributes'), {
-            'fields': ('is_active',)
+            'fields': ('is_active', 'is_staff')
         },
     )
 )

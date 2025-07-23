@@ -80,7 +80,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         }
         fields = (
             'first_name', 'date_joined', 'email', 'groups_url',
-            'id', 'is_active', 'last_login', 'last_name', 'password', 'url',
+            'id', 'is_active', 'is_staff', 'last_login', 'last_name', 'password', 'url',
             'username'
         )
         model = get_user_model()

@@ -306,7 +306,7 @@ class UserSetPasswordView(MultipleObjectFormActionView):
     form_class = SetPasswordForm
     object_permission = permission_user_edit
     pk_url_kwarg = 'user_id'
-    source_queryset = get_user_queryset()
+    # source_queryset = get_user_queryset()
     success_message = _(
         'Password change request performed on %(count)d user'
     )
@@ -314,6 +314,9 @@ class UserSetPasswordView(MultipleObjectFormActionView):
         'Password change request performed on %(count)d users'
     )
     view_icon = icon_password_change
+
+    def get_source_queryset(self):
+        return get_user_queryset(user=self.request.user)
 
     def get_extra_context(self):
         queryset = self.object_list
