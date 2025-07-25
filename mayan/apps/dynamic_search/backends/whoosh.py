@@ -22,19 +22,19 @@ from .literals import (
     DJANGO_TO_WHOOSH_FIELD_MAP, TEXT_LOCK_INSTANCE_DEINDEX,
     TEXT_LOCK_INSTANCE_INDEX, WHOOSH_INDEX_DIRECTORY_NAME,
 )
-logger = logging.getLogger(name=__name__)
+logger = logging.getLogger(name=_name_)
 
 
 class WhooshSearchBackend(SearchBackend):
     field_map = DJANGO_TO_WHOOSH_FIELD_MAP
 
-    def __init__(self, **kwargs):
+    def _init_(self, **kwargs):
         index_path = kwargs.pop('index_path', None)
         writer_limitmb = kwargs.pop('writer_limitmb', 128)
         writer_multisegment = kwargs.pop('writer_multisegment', False)
         writer_procs = kwargs.pop('writer_procs', 1)
 
-        super().__init__(**kwargs)
+        super()._init_(**kwargs)
 
         self.index_path = Path(
             index_path or Path(settings.MEDIA_ROOT, WHOOSH_INDEX_DIRECTORY_NAME)
@@ -210,7 +210,7 @@ class WhooshSearchBackend(SearchBackend):
                                     ),
                                     'id': instance.pk,
                                     'index_data': kwargs,
-                                    'raw_data': instance.__dict__,
+                                    'raw_data': instance._dict_,
                                     'search_model': search_model.get_full_name()
                                 }, exc_info=True
                             )
@@ -255,7 +255,7 @@ class WhooshSearchBackend(SearchBackend):
                                     ),
                                     'id_list': id_list,
                                     'index_data': kwargs,
-                                    'raw_data': instance.__dict__,
+                                    'raw_data': instance._dict_,
                                     'search_model': search_model.get_full_name()
                                 }, exc_info=True
                             )

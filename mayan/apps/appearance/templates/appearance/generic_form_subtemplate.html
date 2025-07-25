@@ -2,44 +2,37 @@
 {% load static %}
 
 {% if title %}
-<h4>
+<h2 style="font-size: 2.4rem; font-weight: 400; margin-bottom: 1.8rem; color: #222;">
     {{ title }}
-</h4>
-<hr>
+</h2>
+<hr style="margin-bottom: 2.4rem;">
 {% endif %}
 
-<div class="well">
+<div style="background: #ecf0f1; border-radius: 12px; padding: 2.4rem; max-width: 840px; margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
     {% if form.is_multipart %}
-        <form action="{{ form_action }}" class="{{ form_css_classes|default:'' }}" enctype="multipart/form-data" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
+        <form action="{{ form_action }}" enctype="multipart/form-data" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
     {% else %}
-        <form action="{{ form_action }}" class="{{ form_css_classes|default:'' }}" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
+        <form action="{{ form_action }}" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
     {% endif %}
         {{ wizard.management_form }}
-
         {% if step_field %}
             <input type="hidden" name="{{ step_field }}" value="{{ step0 }}" />
         {% endif %}
-
         {% if submit_method != 'GET' and submit_method != 'get' %}
             {% csrf_token %}
         {% endif %}
-
         {% if next %}
             <input name="next" type="hidden" value="{{ next }}" />
         {% endif %}
-
         {% if previous %}
             <input name="previous" type="hidden" value="{{ previous }}" />
         {% endif %}
-
         {% for hidden_field in hidden_fields %}
            {{ hidden_field.as_hidden }}
         {% endfor %}
-
         {% if form.management_form %}
             {% with form as formset %}
                 {{ formset.management_form }}
-
                 {% if form_display_mode_table %}
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped">
@@ -52,7 +45,6 @@
                                 {% endfor %}
                             </tr>
                 {% endif %}
-
                 {% for form in formset.forms %}
                     {% include 'appearance/generic_form_instance.html' %}
                 {% empty %}
@@ -60,7 +52,6 @@
                         {% include 'appearance/partials/no_results.html' %}
                     </td></tr>
                 {% endfor %}
-
                 {% if form_display_mode_table %}
                         </tbody>
                     </table>
@@ -68,66 +59,37 @@
                 {% endif %}
             {% endwith %}
         {% else %}
-            {# Custom field rendering for 'role' #}
+            <div style="display: flex; flex-direction: column; gap: 1.8rem; font-size: 1.44rem;">
             {% for field in form.visible_fields %}
-                {% if field.name == "role" %}
-                    <div class="form-group">
-                        <label for="{{ field.id_for_label }}">User Role</label>
-                        {{ field }}
-                        {% if field.help_text %}
-                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                    <label for="{{ field.id_for_label }}" style="font-weight: 500; color: #333; font-size: 1.2em;">{{ field.label }}</label>
+                    {% if field.field.widget.input_type == 'checkbox' %}
+                        <div style="display: flex; align-items: center; gap: 0.6rem;">
+                            <span style="display: flex; align-items: center;">
+                                <input type="checkbox" {% if field.value %}checked{% endif %} name="{{ field.html_name }}" id="{{ field.id_for_label }}" style="width: 1.44em; height: 1.44em; margin-right: 0.5em;" />
+                            </span>
+                            <span style="color: #666; font-size: 1em;">{{ field.help_text }}</span>
+                        </div>
+                    {% else %}
+                        {# Render input fields with custom style for thin border and no outline #}
+                        {% if field.field.widget.input_type in 'text email password number' %}
+                            <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" style="font-size: 1.1em; padding: 0.5em 1.0em; border: 1px solid #bbb; border-radius: 6px; outline: none; box-shadow: none; background: #fff; transition: border 0.2s;" autocomplete="off" />
+                        {% else %}
+                            {{ field }}
                         {% endif %}
-                    </div>
-                {% else %}
-                    <div class="form-group">
-                        {{ field.label_tag }}
-                        {{ field }}
                         {% if field.help_text %}
-                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                            <span style="color: #666; font-size: 1em;">{{ field.help_text }}</span>
                         {% endif %}
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             {% endfor %}
+            </div>
         {% endif %}
         {% if not read_only %}
             {% if not form.management_form or wizard.management_form or form.forms %}
-            {# Is a normal form, a wizard form, or a formset with at least one form #}
-                <div class="form-group">
-                    {% for button in form_button_overrides %}
-                        <button class="btn btn-primary {{ button.css_classes }}{% if button.is_primary %}btn-hotkey-default{% endif %}" {% if button.disabled %}disabled="disabled"{% endif %} name="{% if button.name_override %}{{ button.name_override }}{% else %}{% if form.prefix %}{{ form.prefix }}-{{ button.name }}{% else %}{{ button.name }}{% endif %}{% endif %}" type="submit" value="{{ button.value }}">
-                            {% if button.icon %}
-                                {{ button.icon.render }}
-                            {% else %}
-                                <i class="fa fa-check"></i>
-                            {% endif %}
-                            {% if button.label %}{{ button.label }}{% else %}{% if object %}{% trans 'Save' %}{% else %}{% trans 'Submit' %}{% endif %}{% endif %}
-                        </button>
-                        &nbsp;
-                    {% empty %}
-                        <button class="btn btn-primary btn-hotkey-default" name="{% if form.prefix %}{{ form.prefix }}-submit{% else %}submit{% endif %}" type="submit">
-                            {% if submit_icon %}
-                                {{ submit_icon.render }}
-                            {% else %}
-                                <i class="fa fa-check"></i>
-                            {% endif %}
-                            {% if submit_label %}{{ submit_label }}{% else %}{% if form.instance %}{% trans 'Save' %}{% else %}{% trans 'Submit' %}{% endif %}{% endif %}
-                        </button>
-                        {% if previous %}
-                              &nbsp;<a class="btn btn-default" onclick='history.back();'>
-                                <i class="fa fa-times"></i> {% if cancel_label %}{{ cancel_label }}{% else %}{% trans 'Cancel' %}{% endif %}
-                              </a>
-                        {% endif %}
-
-                        {% for button in extra_buttons %}
-                            &nbsp;
-                            <button class="btn btn-default" name="{% if form.prefix %}{{ form.prefix }}-{{ button.name }}{% else %}{{ button.name }}{% endif %}" type="submit">
-                                {% if button.icon %}
-                                    {{ button.icon.render }}
-                                {% endif %}
-                                {% if button.label %}{{ button.label }}{% else %}{% if object %}{% trans 'Save' %}{% else %}{% trans 'Submit' %}{% endif %}{% endif %}
-                            </button>
-                        {% endfor %}
-                    {% endfor %}
+                <div style="display: flex; gap: 1.2rem; margin-top: 2.4rem;">
+                    <button type="submit" style="background: #2e7d32; color: #fff; border: none; border-radius: 7px; padding: 0.9rem 3rem; font-size: 1.32rem; font-weight: 600; box-shadow: 0 2px 4px rgba(46,125,50,0.08); transition: background 0.2s;">Save</button>
+                    <button type="button" onclick="window.history.back();" style="background: #bdbdbd; color: #222; border: none; border-radius: 7px; padding: 0.9rem 3rem; font-size: 1.32rem; font-weight: 600;">Cancel</button>
                 </div>
             {% endif %}
         {% endif %}

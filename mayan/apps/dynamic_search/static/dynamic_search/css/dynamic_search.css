@@ -1,16 +1,98 @@
-#search-filter-button-clear {
-    bottom: 0;
-    color: #ccc;
+/* Modern search bar styles */
+.search-bar-modern {
+    width: 100%;
+    margin: 32px 0 24px 0;
+    display: flex;
+    justify-content: center;
+}
+.search-bar-modern form {
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    background: #f2f5f6;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: none;
+    border: none;
+    align-items: stretch;
+}
+.search-bar-select {
+    border: none;
+    background: #e9ecef;
+    padding: 0 18px;
+    font-size: 16px;
+    min-width: 160px;
+    border-right: 1px solid #d1d5db;
+    border-radius: 12px 0 0 12px;
+    outline: none;
+    height: 48px;
+    appearance: none;
+    box-shadow: none;
+}
+.search-bar-input {
+    border: none;
+    background: transparent;
+    padding: 0 18px;
+    font-size: 16px;
+    flex: 1;
+    outline: none;
+    height: 48px;
+    box-shadow: none;
+}
+.search-bar-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    background: transparent;
+    color: #b0b6be;
+    font-size: 22px;
     cursor: pointer;
-    font-size: 14px;
-    height: 14px;
-    margin: auto;
-    position: absolute;
-    right: 8px;
-    top: 0;
-    z-index: 3;
+    border: none;
+    border-radius: 0;
+    transition: background 0.2s;
+}
+.search-bar-icon:hover {
+    background: #e0e4ea;
+    color: #233047;
+}
+.search-bar-advanced {
+    background: #233047;
+    color: #fff;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    font-size: 15px;
+    padding: 0 22px;
+    height: 48px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 500;
+}
+.search-bar-advanced:hover {
+    background: #1a2233;
 }
 
-#search-filter-input-terms {
-    height: 36px;
+/* Remove default button styles for icon */
+.search-bar-modern button.search-bar-icon {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+@media (max-width: 600px) {
+    .search-bar-modern form {
+        max-width: 100%;
+        flex-direction: column;
+        border-radius: 10px;
+    }
+    .search-bar-select, .search-bar-input, .search-bar-advanced, .search-bar-icon {
+        border-radius: 0;
+        height: 44px;
+        font-size: 15px;
+    }
+    .search-bar-advanced {
+        border-radius: 0 0 10px 10px;
+    }
 }
