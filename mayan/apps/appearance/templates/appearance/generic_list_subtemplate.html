@@ -5,6 +5,135 @@
 {% load navigation_tags %}
 {% load smart_settings_tags %}
 
+<style>
+/* ===== Label/Header Styling ===== */
+.appearance-list-column-label {
+  align-items: center;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  gap: 100px;
+}
+
+th {
+  background-color: #f8f9fa !important;
+  border-bottom: 2px solid #dee2e6 !important;
+}
+
+/* Sortable column headers */
+th a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+th a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+.appearance-list-column-sort-icon {
+  margin-left: 5px;
+  color: #95a5a6;
+}
+
+/* ===== Button Styling ===== */
+.btn-list {
+  display: flex;
+  /* align-items: center; */
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  margin-left: 50px;
+  border-radius: 4px !important;
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+  transition: all 0.2s !important;
+}
+
+.btn-default {
+  background-color: #f8f9fa;
+  border-color: #ddd;
+  color: #333;
+}
+
+.btn-default:hover {
+  background-color: #2a4560;
+  border-color: #2a4560;
+}
+
+.btn-primary {
+  background-color: #2C3E50;
+  border-color: #2C3E50;
+}
+
+.btn-primary:hover {
+  background-color: #1f2c38;
+  border-color: #1f2c38;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  border-color: #c0392b;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+  border-color: #a53125;
+}
+
+.btn-outline {
+  background-color: transparent;
+}
+
+.btn-outline.btn-default {
+  border-color: #ddd;
+  color: #333;
+}
+
+.btn-outline.btn-default:hover {
+  background-color: #2a4560;
+}
+
+/* Dropdown buttons */
+.dropdown .caret {
+  margin-left: 5px;
+}
+
+/* ===== Table Cell Styling ===== */
+td {
+  vertical-align: middle !important;
+  padding: 12px 8px !important;
+}
+
+.last {
+  white-space: nowrap;
+}
+
+/* ===== Checkbox Styling ===== */
+.checkbox {
+  margin: 0 !important;
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+  .btn-list {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+}
+</style>
+
 <div class="row">
   <div class="col-xs-12">
     {% if not object_list %}
