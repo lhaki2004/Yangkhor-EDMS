@@ -26,5 +26,4 @@ class TagMultipleSelectionForm(FilteredSelectionForm):
         field_name = 'tags'
         label = _('Tags')
         required = False
-        widget_class = TagFormWidget
-        widget_attributes = {'class': 'select2-tags'}
+        widget_attributes = {'class': 'select2'}

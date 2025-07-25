@@ -16,7 +16,9 @@
 }
 
 #appearance-main-viewport {
-    margin-top: 60px;
+    width: calc(100%-210px);
+    margin-top: 40px;
+    padding: 40px;
 }
 
 /* User menu */
@@ -304,8 +306,8 @@ a i {
 
 @media (min-width: 768px) {
     #appearance-main-viewport {
-        padding-right: 0px;
-        padding-left: 0px;
+        /* padding-right: 0px; */
+        /* padding-left: 0px; */
         margin-left: 210px;
     }
 }
