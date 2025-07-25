@@ -37,8 +37,21 @@ class UserCreateView(SingleObjectCreateView):
     view_icon = icon_user_create
     view_permission = permission_user_create
 
+    # def form_valid(self, form):
+    #     super().form_valid(form=form)
+    #     return HttpResponseRedirect(
+    #         reverse(
+    #             viewname='authentication:user_set_password', kwargs={
+    #                 'user_id': self.object.pk
+    #             }
+    #         )
+    #     )
+
     def form_valid(self, form):
-        super().form_valid(form=form)
+        response = super().form_valid(form=form)
+        if not self.object.pk:
+            print("User creation failed, object has no PK.")
+            return self.form_invalid(form)
         return HttpResponseRedirect(
             reverse(
                 viewname='authentication:user_set_password', kwargs={
@@ -49,6 +62,12 @@ class UserCreateView(SingleObjectCreateView):
 
     def get_instance_extra_data(self):
         return {'_event_actor': self.request.user}
+
+    def form_invalid(self, form):
+        print("Form is INVALID. Errors:", form.errors)
+        print("Form data:", form.data)
+        print("Form non field errors:", form.non_field_errors())
+        return super().form_invalid(form)
 
 
 class UserDeleteView(MultipleObjectDeleteView):
