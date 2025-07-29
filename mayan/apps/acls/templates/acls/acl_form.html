@@ -1,0 +1,21 @@
+{% extends 'appearance/base_plain.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block base_title %}{% trans 'New ACL' %}{% endblock %}
+
+{% block content_plain %}
+<div style="max-width: 420px; margin: 40px auto; padding: 2rem; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+    <h2 style="font-weight: 700; margin-bottom: 1.5rem;">{% block title %}{{ title|default:_('New ACL') }}{% endblock %}</h2>
+    {% if object %}
+        <div style="margin-bottom: 1rem; color: #666;">
+            <strong>{% trans 'For object:' %}</strong> {{ object }}
+        </div>
+    {% endif %}
+    <form action="." method="post">{% csrf_token %}
+        {% include 'appearance/generic_form_instance.html' %}
+        <button class="btn btn-primary" type="submit" style="margin-top: 1.5rem;">{% trans 'Create ACL' %}</button>
+    </form>
+</div>
+{% endblock %}

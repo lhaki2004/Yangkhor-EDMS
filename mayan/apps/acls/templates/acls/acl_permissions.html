@@ -1,0 +1,34 @@
+{% extends 'appearance/base.html' %}
+
+{% load i18n %}
+{% load views_tags %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- <div class="mb-3 text-muted">
+                <strong>{% trans 'For object:' %}</strong> {{ object }}<br>
+                <strong>{% trans 'Role:' %}</strong> {{ acl.role }}
+            </div> -->
+        </div>
+    </div>
+    <div class="row">
+        {% for subtemplate in subtemplates_list %}
+            <div class="{{ subtemplate.column_class }}">
+                <div class="card">
+                    <!-- <div class="card-header">
+                        <h5 class="mb-0">{{ subtemplate.context.title }}</h5>
+                    </div> -->
+                    <div class="card-body">
+                        {% views_render_subtemplate subtemplate.name subtemplate.context as rendered_subtemplate %}
+                        {{ rendered_subtemplate|safe }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
