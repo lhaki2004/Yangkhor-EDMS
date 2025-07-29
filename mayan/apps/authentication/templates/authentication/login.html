@@ -14,62 +14,107 @@
 {% block content_plain %}
     {% appearance_app_templates template_name='login_content' %}
 
-    <div class="row">
-        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{% trans 'Sign in' %}</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="content login">
-                        <form action="." method="post" class="form login">
-                            {% csrf_token %}
-                            <div class="group wat-cf">
-                                {{ wizard.management_form }}
-
-                                {% if wizard.form.forms %}
-                                    {{ wizard.form.management_form }}
-
-                                    {% with wizard.form as form %}
-                                    {% with 'true' as form_display_mode_table %}
-                                        {% include 'appearance/generic_form_instance.html' %}
-                                    {% endwith %}
-                                    {% endwith %}
-                                {% else %}
-                                    {% if wizard.form %}
-                                        {% with wizard.form as form %}
-                                            {% include 'appearance/generic_form_instance.html' %}
-                                        {% endwith %}
-                                    {% else %}
-                                        {% include 'appearance/generic_form_instance.html' %}
-                                    {% endif %}
-                                {% endif %}
-
-                                <input type="hidden" name="next" value="{{ next|escape }}" />
-
-                                <div class="form-group">
-                                    <button class="btn btn-primary btn-hotkey-default" name="{% if form.prefix %}{{ form.prefix }}-submit{% else %}submit{% endif %}" type="submit">
-                                        {% if submit_icon %}
-                                            {{ submit_icon.render }}
-                                        {% else %}
-                                            <i class="fa fa-check"></i>
-                                        {% endif %}
-                                        {% if submit_label %}{{ submit_label }}{% else %}{% if form.instance %}{% trans 'Save' %}{% else %}{% trans 'Submit' %}{% endif %}{% endif %}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-
-                        {% smart_setting global_name="AUTHENTICATION_DISABLE_PASSWORD_RESET" as setting_disable_password_reset %}
-                        {% if not setting_disable_password_reset %}
-                            <hr>
-                            <div>
-                                <a class="pull-right" href="{% url 'authentication:password_reset_view' %}">{% trans 'Forgot your password?' %}</a>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
+    <div class="login-viewport d-flex align-items-center justify-content-center">
+        <div class="login-card-custom p-5">
+            <div class="d-flex align-items-center mb-4" style="gap: 0.75rem;">
+                <!-- <i class="fas fa-user-plus fa-2x" style="color: #263238;"></i> -->
+                <h2 class="mb-0" style="font-weight: bold;">{% trans 'Sign in' %}</h2>
             </div>
+            <form action="." method="post" class="form login">
+                {% csrf_token %}
+                <div class="form-group mb-4">
+                    <label for="id_username">{% trans 'Username:' %}</label>
+                    <input type="text" name="username" class="form-control form-control-lg login-input" id="id_username" required>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="id_password">{% trans 'Password:' %}</label>
+                    <input type="password" name="password" class="form-control form-control-lg login-input" id="id_password" required>
+                </div>
+                <div class="d-flex justify-content-end mb-4">
+                    {% smart_setting global_name="AUTHENTICATION_DISABLE_PASSWORD_RESET" as setting_disable_password_reset %}
+                    {% if not setting_disable_password_reset %}
+                        <a href="{% url 'authentication:password_reset_view' %}" class="forgot-password-link">{% trans 'Forgot Password?' %}</a>
+                    {% endif %}
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-success btn-lg px-5 py-2 login-submit-btn" type="submit">{% trans 'Submit' %}</button>
+                </div>
+            </form>
         </div>
     </div>
+
+    <style>
+    html, body {
+        height: 100%;
+    }
+    body {
+        background-color: #fff;
+        height: 100%;
+        margin: 0;
+    }
+    .login-viewport {
+        min-height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .login-card-custom {
+        background: #f5f8fa;
+        border-radius: 16px;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+        width: 90vw;
+        max-width: 500px;
+        min-width: 320px;
+        padding: 2.5rem 2.5rem 2rem 2.5rem;
+    }
+    .form-group label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    .form-control.login-input {
+        border: 1px solid #ced4da;
+        box-shadow: none;
+        border-radius: 8px;
+        font-size: 1.25rem;
+        padding: 0.75rem 1rem;
+        transition: font-size 0.2s;
+    }
+    .form-control.login-input:focus {
+        font-size: 1.35rem;
+    }
+    .btn-success.login-submit-btn {
+        background-color: #388e3c;
+        border-color: #388e3c;
+        border-radius: 16px;
+        font-weight: 600;
+        font-size: 1.25rem;
+        min-width: 180px;
+        box-shadow: 0 4px 12px rgba(56,142,60,0.10);
+        transition: background 0.2s, border 0.2s;
+    }
+    .btn-success.login-submit-btn:hover {
+        background-color: #2e7031;
+        border-color: #2e7031;
+    }
+    .forgot-password-link {
+        color: #444;
+        text-decoration: none;
+        font-size: 1.15rem;
+        font-weight: 600;
+        transition: text-decoration 0.2s;
+    }
+    .forgot-password-link:hover {
+        text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+        .login-card-custom {
+            padding: 1.5rem 0.5rem 1rem 0.5rem;
+            max-width: 98vw;
+        }
+        .d-flex.align-items-center.mb-4 h2 {
+            font-size: 1.5rem;
+        }
+    }
+    </style>
 {% endblock %}

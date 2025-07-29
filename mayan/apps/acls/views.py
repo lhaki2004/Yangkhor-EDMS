@@ -38,6 +38,7 @@ class ACLCreateView(
     external_object_pk_url_kwarg = 'object_id'
     form_class = ACLCreateForm
     view_icon = icon_acl_create
+    # template_name = 'acls/acl_form.html'
 
     def get_error_message_duplicate(self):
         return _(
@@ -172,6 +173,7 @@ class ACLPermissionAddRemoveView(AddRemoveView):
     list_available_title = _('Available permissions')
     related_field = 'permissions'
     view_icon = icon_acl_permissions
+    template_name = 'acls/acl_permissions.html'
 
     def generate_choices(self, queryset):
         namespaces_dictionary = {}
