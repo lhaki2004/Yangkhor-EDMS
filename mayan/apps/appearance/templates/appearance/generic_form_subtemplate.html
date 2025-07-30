@@ -8,7 +8,8 @@
 <hr style="margin-bottom: 2.4rem;">
 {% endif %}
 
-<div style="background: #ecf0f1; border-radius: 12px; padding: 2.4rem; max-width: 840px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">    {% if form.is_multipart %}
+<div style="background: #ecf0f1; border-radius: 12px; padding: 2.4rem; max-width: 840px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+    {% if form.is_multipart %}
         <form action="{{ form_action }}" enctype="multipart/form-data" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
     {% else %}
         <form action="{{ form_action }}" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
