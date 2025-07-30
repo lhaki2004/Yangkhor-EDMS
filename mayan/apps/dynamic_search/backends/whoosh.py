@@ -22,19 +22,19 @@ from .literals import (
     DJANGO_TO_WHOOSH_FIELD_MAP, TEXT_LOCK_INSTANCE_DEINDEX,
     TEXT_LOCK_INSTANCE_INDEX, WHOOSH_INDEX_DIRECTORY_NAME,
 )
-logger = logging.getLogger(name=_name_)
+logger = logging.getLogger(name=__name__)
 
 
 class WhooshSearchBackend(SearchBackend):
     field_map = DJANGO_TO_WHOOSH_FIELD_MAP
 
-    def _init_(self, **kwargs):
+    def __init__(self, **kwargs):
         index_path = kwargs.pop('index_path', None)
         writer_limitmb = kwargs.pop('writer_limitmb', 128)
         writer_multisegment = kwargs.pop('writer_multisegment', False)
         writer_procs = kwargs.pop('writer_procs', 1)
 
-        super()._init_(**kwargs)
+        super().__init__(**kwargs)
 
         self.index_path = Path(
             index_path or Path(settings.MEDIA_ROOT, WHOOSH_INDEX_DIRECTORY_NAME)
@@ -172,6 +172,8 @@ class WhooshSearchBackend(SearchBackend):
         return whoosh.fields.Schema(**schema_kwargs)
 
     def get_storage(self):
+        if not hasattr(self, 'index_path'):
+            raise RuntimeError("WhooshSearchBackend missing index_path. Was __init__ called?")
         return FileStorage(path=self.index_path)
 
     def index_instance(self, instance, exclude_model=None, exclude_kwargs=None):
