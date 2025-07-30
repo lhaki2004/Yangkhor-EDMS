@@ -1,98 +1,117 @@
-/* Modern search bar styles */
-.search-bar-modern {
-    width: 100%;
-    margin: 32px 0 24px 0;
+#search-filter-button-clear {
+    bottom: 0;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    height: 14px;
+    margin: auto;
+    position: absolute;
+    right: 8px;
+    top: 0;
+    z-index: 3;
+}
+
+#search-filter-input-terms {
+    height: 36px;
+}
+
+/* --- Custom Search Bar Styles --- */
+.search-bar-container {
     display: flex;
     justify-content: center;
+    /* margin: 2px; */
+    width: 100%;
 }
-.search-bar-modern form {
+
+#formSearch {
     display: flex;
     width: 100%;
-    max-width: 800px;
-    background: #f2f5f6;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: none;
-    border: none;
-    align-items: stretch;
+    /* max-width: 900px; */
+    align-items: center;
+    gap: -0.5rem;
+    background: #fff;
+    border-radius: 15px;
+    border: 1px solid #000000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 0;
 }
-.search-bar-select {
-    border: none;
-    background: #e9ecef;
-    padding: 0 18px;
-    font-size: 16px;
-    min-width: 160px;
-    border-right: 1px solid #d1d5db;
-    border-radius: 12px 0 0 12px;
+
+#formSearch select.form-control {
+    /* max-width: 180px; */
+    min-width: 120px;
+    border-radius: 15px 0 0 15px;
+    /* border: 0 1px 0 0 solid #000000; */
+    border-right: 1px solid #000000;
+    background: #f9f9f9;
+    font-size: 1.3rem;
     outline: none;
-    height: 48px;
-    appearance: none;
     box-shadow: none;
 }
-.search-bar-input {
+
+#formSearch select.form-control:focus{
+    min-width: 120px;
+    border-radius: 15px 0 0 15px;
+    /* border: 0 1px 0 0 solid #000000; */
+    border-right: 1px solid #000000;
+    background: #f9f9f9;
+    outline: none;
+    box-shadow: none;
+}
+
+#formSearch input.form-control {
+    flex: 1 1 0;
+    min-width: 120px;
+    /* border-radius: 4px; */
     border: none;
+    background: #f9f9f9;
+    font-size: 1.3rem;
+    /* margin-right: 0.5rem; */
+    /* transition: border-color 0.2s; */
+    outline: none;
+}
+#formSearch input.form-control:focus {
+    /* border-color: #000; */
+    /* background: #fff; */
+    border: none;
+}
+
+#formSearch button.btn-primary {
+    min-width: 48px;
+    /* border-radius: 4px; */
     background: transparent;
-    padding: 0 18px;
-    font-size: 16px;
-    flex: 1;
-    outline: none;
-    height: 48px;
-    box-shadow: none;
-}
-.search-bar-icon {
+    border: none;
+    color: #000000;
+    font-size: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    background: transparent;
-    color: #b0b6be;
-    font-size: 22px;
-    cursor: pointer;
-    border: none;
-    border-radius: 0;
-    transition: background 0.2s;
+    /* transition: background 0.2s; */
 }
-.search-bar-icon:hover {
-    background: #e0e4ea;
-    color: #233047;
-}
-.search-bar-advanced {
-    background: #233047;
-    color: #fff;
-    border: none;
-    border-radius: 0 12px 12px 0;
-    font-size: 15px;
-    padding: 0 22px;
-    height: 48px;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-weight: 500;
-}
-.search-bar-advanced:hover {
-    background: #1a2233;
+#formSearch button.btn-primary:hover {
+    background: none;
 }
 
-/* Remove default button styles for icon */
-.search-bar-modern button.search-bar-icon {
-    background: transparent;
+#formSearch a.btn-secondary {
+    min-width: 110px;
+    border-radius: 0 15px 15px 0;
+    background: #2C3E50;
     border: none;
-    padding: 0;
-    margin: 0;
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    margin-left: 0.5rem;
+    transition: background 0.2s, border-color 0.2s;
+    text-decoration: none;
+    outline: none;
+}
+#formSearch a.btn-secondary:hover {
+    background: #2C3E50;
+    color: #fff;
+    text-decoration: none;
+}
+#formSearch a.btn-secondary:focus {
+    outline: none;
     box-shadow: none;
 }
 
-@media (max-width: 600px) {
-    .search-bar-modern form {
-        max-width: 100%;
-        flex-direction: column;
-        border-radius: 10px;
-    }
-    .search-bar-select, .search-bar-input, .search-bar-advanced, .search-bar-icon {
-        border-radius: 0;
-        height: 44px;
-        font-size: 15px;
-    }
-    .search-bar-advanced {
-        border-radius: 0 0 10px 10px;
-    }
-}
+
