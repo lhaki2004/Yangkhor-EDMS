@@ -316,9 +316,23 @@ a i {
 /* Side bar */
 #menu-actions {
     position: fixed;
-    right: 5px;
-    top: 65px;
+    right: 20px;
+    top: 80px;
     z-index: 1020;
+}
+
+#menu-actions .action-btn {
+    /* Custom button styling */
+    background: #2C3E50;
+    border: none;
+    border-radius: 25px;
+    /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
+    color: white;
+    font-weight: 600;
+    padding: 8px 20px;
+    /* text-transform: uppercase; */
+    /* letter-spacing: 0.5px; */
+    /* transition: all 0.3s ease; */
 }
 
 #viewport {
@@ -336,11 +350,11 @@ a i {
         display: block;
         overflow-x: visible;
         overflow-y: auto;
-        padding-top: 10px;
+        padding-top: 15px;
         position: fixed;
         right: 0;
-        top: 100px;
-        width: 160px;
+        top: 140px;
+        width: 180px;
         z-index: 1000;
     }
 
