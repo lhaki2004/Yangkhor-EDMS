@@ -40,7 +40,7 @@
     border-radius: 20px 0 0 20px;
     border: none;
     background: #f4f7f8;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     outline: none;
     box-shadow: none;
     height: 40px;
@@ -58,7 +58,7 @@
     min-width: 140px;
     border: none;
     background: #f4f7f8;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     outline: none;
     height: 40px;
     padding-left: 16px;
@@ -114,7 +114,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     padding: 0 24px;
 }
 #formSearch a.btn-secondary:hover {
