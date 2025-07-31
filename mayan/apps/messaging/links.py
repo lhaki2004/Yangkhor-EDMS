@@ -41,7 +41,8 @@ def get_unread_message_count(context):
             user=context.request.user
         )
 
-        return queryset.count()
+        count = queryset.count()
+        return str(count) if count > 0 else ""
 
 
 link_message_create = Link(
