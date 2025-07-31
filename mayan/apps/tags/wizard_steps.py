@@ -51,4 +51,4 @@ class DocumentCreateWizardStepTags(DocumentCreateWizardStep):
             tag.attach_to(document=document)
 
 
-DocumentCreateWizardStep.register(step=DocumentCreateWizardStepTags)
+# DocumentCreateWizardStep.register(step=DocumentCreateWizardStepTags)
