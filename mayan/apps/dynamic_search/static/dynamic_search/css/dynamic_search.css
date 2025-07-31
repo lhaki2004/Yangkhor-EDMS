@@ -19,65 +19,73 @@
 .search-bar-container {
     display: flex;
     justify-content: center;
-    /* margin: 2px; */
     width: 100%;
+    margin: 2rem 0;
 }
 
 #formSearch {
     display: flex;
     width: 100%;
-    /* max-width: 900px; */
     align-items: center;
-    gap: -0.5rem;
-    background: #fff;
-    border-radius: 15px;
-    border: 1px solid #000000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: #f4f7f8;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    box-shadow: none;
     padding: 0;
+    gap: 0;
 }
 
 #formSearch select.form-control {
-    /* max-width: 180px; */
-    min-width: 120px;
-    border-radius: 15px 0 0 15px;
-    /* border: 0 1px 0 0 solid #000000; */
-    border-right: 1px solid #000000;
-    background: #f9f9f9;
-    font-size: 1.3rem;
+    min-width: 140px;
+    border-radius: 20px 0 0 20px;
+    border: none;
+    background: #f4f7f8;
+    font-size: 1.5rem;
     outline: none;
     box-shadow: none;
+    height: 40px;
+    padding-left: 16px;
 }
 
-#formSearch select.form-control:focus{
-    min-width: 120px;
-    border-radius: 15px 0 0 15px;
-    /* border: 0 1px 0 0 solid #000000; */
-    border-right: 1px solid #000000;
-    background: #f9f9f9;
+#formSearch select.form-control:focus {
+    border: none;
     outline: none;
     box-shadow: none;
 }
 
 #formSearch input.form-control {
     flex: 1 1 0;
-    min-width: 120px;
-    /* border-radius: 4px; */
+    min-width: 140px;
     border: none;
-    background: #f9f9f9;
-    font-size: 1.3rem;
-    /* margin-right: 0.5rem; */
-    /* transition: border-color 0.2s; */
+    background: #f4f7f8;
+    font-size: 1.5rem;
     outline: none;
+    height: 40px;
+    padding-left: 16px;
+    padding-right: 36px;
+    border-radius: 0;
 }
 #formSearch input.form-control:focus {
-    /* border-color: #000; */
-    /* background: #fff; */
     border: none;
+    outline: none;
+}
+
+#formSearch .search-icon {
+    position: absolute;
+    right: 130px;
+    color: #b0b0b0;
+    font-size: 1.25rem;
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#formSearch {
+    position: relative;
 }
 
 #formSearch button.btn-primary {
     min-width: 48px;
-    /* border-radius: 4px; */
     background: transparent;
     border: none;
     color: #000000;
@@ -85,27 +93,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* transition: background 0.2s; */
 }
 #formSearch button.btn-primary:hover {
     background: none;
 }
 
 #formSearch a.btn-secondary {
-    min-width: 110px;
-    border-radius: 0 15px 15px 0;
+    min-width: 130px;
+    border-radius: 0 999px 999px 0;
     background: #2C3E50;
     border: none;
     color: #fff;
     font-weight: 500;
     text-align: center;
-    margin-left: 0.5rem;
+    margin-left: 0;
     transition: background 0.2s, border-color 0.2s;
     text-decoration: none;
     outline: none;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding: 0 24px;
 }
 #formSearch a.btn-secondary:hover {
-    background: #2C3E50;
+    background: #1a232b;
     color: #fff;
     text-decoration: none;
 }

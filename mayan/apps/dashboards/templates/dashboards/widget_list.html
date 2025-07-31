@@ -3,18 +3,18 @@
 {% load appearance_tags %}
 {% load navigation_tags %}
 
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 match-height">
+<div class="">
     <div class="panel panel-secondary dashboards-panel-widget">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-xs-2">
+                <div class="icon">
                     {% if icon %}
                         <div class="dashboards-panel-widget-icon">
                             {% appearance_icon_render icon enable_shadow=True %}
                         </div>
                     {% endif %}
                 </div>
-                <div class="col-xs-10">
+                <div class="heading">
                     <strong>{{ label }}</strong>
                 </div>
             </div>

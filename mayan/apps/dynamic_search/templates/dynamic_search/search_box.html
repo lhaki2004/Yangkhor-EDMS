@@ -16,7 +16,7 @@
             {% endfor %}
         </select>
         <input class="form-control" name="q" placeholder="{% trans 'Search Terms' %}" type="text" value="{{ search_terms|default:'' }}" style="flex: 1 1 0; min-width: 120px;">
-        <button class="btn btn-primary" type="submit" style="min-width: 48px;"><i class="fa fa-search"></i></button>
+        <span class="search-icon"><i class="fa fa-search"></i></span>
         <a class="btn btn-secondary" href="" id="search-button-search-advanced" style="min-width: 110px;">{% trans 'Advanced' %}</a>
     </form>
 </div>
