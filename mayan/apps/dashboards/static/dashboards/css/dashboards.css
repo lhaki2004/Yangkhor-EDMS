@@ -1,22 +1,117 @@
+/* Dashboard Card Styles */
 .dashboards-panel-widget {
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-    border: 1px solid black;
+    background: #f5f7f8;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(60, 60, 60, 0.08);
+    border: none;
+    /* margin: 0 16px 24px 0; */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    max-width: 350px;
+}
+
+.dashboards-panel-widget > .panel-heading,
+.dashboards-panel-widget > h4 {
+    background: #e3e8ea;
+    border-radius: 12px 12px 0 0;
+    padding: 16px 20px 8px 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #3a3a3a;
+    border-bottom: 1px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .dashboards-panel-widget > .panel-body {
-    font-size: 90%;
-    max-height: 308px;
+    font-size: 1em;
+    max-height: 300px;
     overflow-y: auto;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    padding-right: 15px;
-    padding-top: 5px;
+    padding: 12px 20px;
+    background: #fff;
+    border-radius: 0 0 0 0;
 }
 
-.dashboards-panel-widget > .panel-body table {
-    margin-bottom: 5px;
+.dashboards-panel-widget .panel-footer,
+.dashboards-panel-widget .view-details {
+    background: #e3e8ea;
+    border-top: 1px solid #d1d5db;
+    border-radius: 0 0 12px 12px;
+    padding: 12px 20px;
+    font-size: 1em;
+    color: #444;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboards-panel-widget .view-details {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dashboards-panel-widget .view-details:hover {
+    background: #e3e8ea;
+}
+
+.dashboards-panel-widget table {
+    width: 100%;
+    margin-bottom: 0;
+    background: transparent;
 }
 
 .dashboards-panel-widget-icon {
-    font-size: 200%;
+    font-size: 1em;
+    color: #6c757d;
+    margin-right: 8px;
+}
+
+.dashboards-panel-widget a {
+    color: #1ca7ec;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.dashboards-panel-widget a:hover {
+    color: #0d6efd;
+    text-decoration: underline;
+}
+
+/* Dashboard Layout */
+.dashboard .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: flex-start;
+}
+
+.penal_heading .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: flex-start;
+}
+
+.penal_heading .icon{
+    width: 20px;
+}
+
+.penal_heading .heading{
+    font-size: 1rem;
+}
+
+.dashboard {
+    min-height: 400px;
+    max-height: 450px;
+}
+
+.panel-body .row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: flex-start;
+    margin-top: -30px;
 }
