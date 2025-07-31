@@ -7,7 +7,7 @@
 
 <style>
 .table-container {
-  margin-right: 195px;
+  margin-right: 150px;
 }
 
 /* ===== Label/Header Styling ===== */
@@ -136,22 +136,6 @@ td {
     width: 100%;
   }
 }
-
-/* ===== Table Overflow Fix ===== */
-.table-fixed {
-  table-layout: fixed;
-  width: 100%;
-}
-
-.well.center-block {
-  overflow: hidden;
-  max-width: 100%;
-}
-
-.table-responsive {
-  overflow-x: auto;
-  max-width: 100%;
-}
 </style>
 
 <div class="table-container row">
@@ -169,7 +153,7 @@ td {
 
       <div class="well center-block">
         <div class="table-responsive">
-          <table class="table table-condensed table-striped table-fixed">
+          <table class="table table-condensed table-striped">
             <thead>
               {% if not hide_header %}
               <tr>
