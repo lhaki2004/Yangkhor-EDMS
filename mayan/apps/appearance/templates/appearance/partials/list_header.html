@@ -5,6 +5,14 @@
 {% load common_tags %}
 {% load navigation_tags %}
 
+<style>
+input[type="text"].form-control, input[type="search"].form-control {
+    width: 350px;
+    border-radius: 100px !important;
+    padding-left: 100px;
+}
+</style>
+
 <h4>
     {% if page_obj %}
         {% if page_obj.paginator.num_pages != 1 %}

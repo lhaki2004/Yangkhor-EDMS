@@ -15,7 +15,7 @@
         <form action="{{ form_action }}" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
     {% endif %}
         {{ wizard.management_form }}
-        {% if step_field %}
+        {% if step_field %} 
             <input type="hidden" name="{{ step_field }}" value="{{ step0 }}" />
         {% endif %}
         {% if submit_method != 'GET' and submit_method != 'get' %}
