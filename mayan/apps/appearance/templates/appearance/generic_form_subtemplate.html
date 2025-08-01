@@ -3,95 +3,230 @@
 
 {% if title %}
 <h2 style="font-size: 2.4rem; font-weight: 400; margin-bottom: 1.8rem; color: #222;">
-    {{ title }}
+    {{ title }}
 </h2>
 <hr style="margin-bottom: 2.4rem;">
 {% endif %}
 
 <div style="background: #ecf0f1; border-radius: 12px; padding: 2.4rem; max-width: 1020px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-    {% if form.is_multipart %}
-        <form action="{{ form_action }}" enctype="multipart/form-data" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
-    {% else %}
-        <form action="{{ form_action }}" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
-    {% endif %}
-        {{ wizard.management_form }}
-        {% if step_field %} 
-            <input type="hidden" name="{{ step_field }}" value="{{ step0 }}" />
-        {% endif %}
-        {% if submit_method != 'GET' and submit_method != 'get' %}
-            {% csrf_token %}
-        {% endif %}
-        {% if next %}
-            <input name="next" type="hidden" value="{{ next }}" />
-        {% endif %}
-        {% if previous %}
-            <input name="previous" type="hidden" value="{{ previous }}" />
-        {% endif %}
-        {% for hidden_field in hidden_fields %}
-           {{ hidden_field.as_hidden }}
-        {% endfor %}
-        {% if form.management_form %}
-            {% with form as formset %}
-                {{ formset.management_form }}
-                {% if form_display_mode_table %}
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-striped">
-                            <tbody>
-                            <tr>
-                                {% for field in formset.forms.0.visible_fields %}
-                                    <th>
-                                        {{ field.label_tag }}{% if field.field.required and not read_only %} ({% trans 'required' %}){% endif %}
-                                    </th>
-                                {% endfor %}
-                            </tr>
-                {% endif %}
-                {% for form in formset.forms %}
-                    {% include 'appearance/generic_form_instance.html' %}
-                {% empty %}
-                    <tr><td class="text-center" colspan=99>
-                        {% include 'appearance/partials/no_results.html' %}
-                    </td></tr>
-                {% endfor %}
-                {% if form_display_mode_table %}
-                        </tbody>
-                    </table>
-                </div>
-                {% endif %}
-            {% endwith %}
-        {% else %}
-            <div style="display: flex; flex-direction: column; gap: 1.8rem; font-size: 1.44rem;">
-            {% for field in form.visible_fields %}
-                <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                    <label for="{{ field.id_for_label }}" style="font-weight: 500; color: #333; font-size: 1.2em;">{{ field.label }}</label>
-                    {% if field.field.widget.input_type == 'checkbox' %}
-                        <div style="display: flex; align-items: center; gap: 0.6rem;">
-                            <span style="display: flex; align-items: center;">
-                                <input type="checkbox" {% if field.value %}checked{% endif %} name="{{ field.html_name }}" id="{{ field.id_for_label }}" style="width: 1.44em; height: 1.44em; margin-right: 0.5em;" />
-                            </span>
-                            <span style="color: #666; font-size: 1em;">{{ field.help_text }}</span>
-                        </div>
-                    {% else %}
-                        {# Render input fields with custom style for thin border and no outline #}
-                        {% if field.field.widget.input_type in 'text email password number' %}
-                            <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" style="font-size: 1.1em; padding: 0.5em 1.0em; border: 1px solid #bbb; border-radius: 6px; outline: none; box-shadow: none; background: #fff; transition: border 0.2s;" autocomplete="off" />
-                        {% else %}
-                            {{ field }}
-                        {% endif %}
-                        {% if field.help_text %}
-                            <span style="color: #666; font-size: 1em;">{{ field.help_text }}</span>
-                        {% endif %}
-                    {% endif %}
-                </div>
-            {% endfor %}
-            </div>
-        {% endif %}
-        {% if not read_only %}
-            {% if not form.management_form or wizard.management_form or form.forms %}
-                <div style="display: flex; gap: 1.2rem; margin-top: 2.4rem;">
-                    <button type="submit" style="background: #2e7d32; color: #fff; border: none; border-radius: 7px; padding: 0.9rem 3rem; font-size: 1.32rem; font-weight: 600; box-shadow: 0 2px 4px rgba(46,125,50,0.08); transition: background 0.2s;">Save</button>
-                    <button type="button" onclick="window.history.back();" style="background: #bdbdbd; color: #222; border: none; border-radius: 7px; padding: 0.9rem 3rem; font-size: 1.32rem; font-weight: 600;">Cancel</button>
-                </div>
-            {% endif %}
-        {% endif %}
-    </form>
+    {% if form.is_multipart %}
+        <form action="{{ form_action }}" enctype="multipart/form-data" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
+    {% else %}
+        <form action="{{ form_action }}" method="{{ submit_method|default:'post' }}" name="{{ form.prefix|default:'' }}" target="{{ submit_target|default:'_self' }}">
+    {% endif %}
+        {{ wizard.management_form }}
+        {% if step_field %} 
+            <input type="hidden" name="{{ step_field }}" value="{{ step0 }}" />
+        {% endif %}
+        {% if submit_method != 'GET' and submit_method != 'get' %}
+            {% csrf_token %}
+        {% endif %}
+        {% if next %}
+            <input name="next" type="hidden" value="{{ next }}" />
+        {% endif %}
+        {% if previous %}
+            <input name="previous" type="hidden" value="{{ previous }}" />
+        {% endif %}
+        {% for hidden_field in hidden_fields %}
+           {{ hidden_field.as_hidden }}
+        {% endfor %}
+        {% if form.management_form %}
+            {% with form as formset %}
+                {{ formset.management_form }}
+                {% if form_display_mode_table %}
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped">
+                            <tbody>
+                            <tr>
+                                {% for field in formset.forms.0.visible_fields %}
+                                    <th>
+                                        {{ field.label_tag }}{% if field.field.required and not read_only %} ({% trans 'required' %}){% endif %}
+                                    </th>
+                                {% endfor %}
+                {% endif %}
+                {% for form in formset.forms %}
+                    {% include 'appearance/generic_form_instance.html' %}
+                {% empty %}
+                    <tr><td class="text-center" colspan=99>
+                        {% include 'appearance/partials/no_results.html' %}
+                    </td></tr>
+                {% endfor %}
+                {% if form_display_mode_table %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            {% endwith %}
+        {% else %}
+            <div style="display: flex; flex-direction: column; gap: 1.8rem; font-size: 1.44rem;">
+            {% for field in form.visible_fields %}
+                <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                    <label for="{{ field.id_for_label }}" style="font-weight: 500; color: #333; font-size: 1.2em;">{{ field.label }}</label>
+                    {% if field.field.widget.input_type == 'checkbox' %}
+                        <div style="display: flex; align-items: center; gap: 0.6rem;">
+                            <span style="display: flex; align-items: center;">
+                                <input type="checkbox" {% if field.value %}checked{% endif %} name="{{ field.html_name }}" id="{{ field.id_for_label }}" style="width: 1.44em; height: 1.44em; margin-right: 0.5em;" />
+                            </span>
+                            <span style="color: #666; font-size: 1em;">{{ field.help_text }}</span>
+                        </div>
+                    {% else %}
+                        {# Render input fields with custom style for thin border and no outline #}
+                        {% if field.field.widget.input_type == 'password' %}
+                            <div class="password-container">
+                                <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" class="form-control-custom" autocomplete="off" />
+                                <span class="password-toggle" data-target-input="{{ field.id_for_label }}">
+                                    {# SVG for open eye #}
+                                    <svg class="eye-icon-open" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 13c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zm0-7c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"/>
+                                    </svg>
+                                    {# SVG for closed eye (eye-slash) #}
+                                    <svg class="eye-icon-closed" style="display: none;" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm-5.5 8c0-2.48 2.02-4.5 4.5-4.5h.5c.34 0 .67.04 1 .09L15.41 6.8c-1.71-.97-3.67-1.45-5.41-1.45-2.48 0-4.5 2.02-4.5 4.5zm-1.89-3.95L3.33 6.67l-1.33 1.33c.91 1.76 2.14 3.32 3.63 4.67L5 12.55l-1.67 1.67c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l3.08-3.08c1.33.62 2.8.97 4.35.97 4.07 0 7.4-2.85 8.2-6.52l1.67-1.67-1.33-1.33c-.92 1.76-2.15 3.32-3.64 4.67l-3.09-3.09zm.49 1.25L10.33 10l.96.96c-.32.35-.59.73-.79 1.15-.35-.74-.55-1.55-.55-2.39 0-.17.02-.33.04-.5z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        {% elif field.field.widget.input_type in 'text email number' %}
+                            <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" class="form-control-custom" autocomplete="off" />
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+                        {% if field.help_text %}
+                            <span style="color: #666; font-size: 1em;">{{ field.help_text }}</span>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+        {% if not read_only %}
+            {% if not form.management_form or wizard.management_form or form.forms %}
+                <div style="display: flex; gap: 1.2rem; margin-top: 2.4rem;">
+                    <button type="submit" style="background: #2e7d32; color: #fff; border: none; border-radius: 7px; padding: 0.9rem 3rem; font-size: 1.32rem; font-weight: 600; box-shadow: 0 2px 4px rgba(46,125,50,0.08); transition: background 0.2s;">Save</button>
+                    <button type="button" onclick="window.history.back();" style="background: #bdbdbd; color: #222; border: none; border-radius: 7px; padding: 0.9rem 3rem; font-size: 1.32rem; font-weight: 600;">Cancel</button>
+                </div>
+            {% endif %}
+        {% endif %}
+    </form>
 </div>
+
+<style>
+/* Consolidated styles for form controls and password toggles */
+
+.form-control-custom {
+    font-size: 1.1em;
+    padding: 0.5em 1.0em;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    outline: none;
+    box-shadow: none;
+    background: #fff;
+    transition: border 0.2s;
+    width: 100%; /* Ensure inputs take full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Specific styling for the password input within its container */
+.password-container {
+    position: relative;
+    display: block; /* Ensure the container takes up space */
+}
+
+.password-container .form-control-custom {
+    padding-right: 2.5rem; /* Make space for the icon */
+    /* Ensure the input's height matches the expected height for centering the icon */
+    height: calc(1.1em + 1em + 2px); /* font-size + 2*padding + 2*border */
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px; /* Adjust based on your input's padding and desired spacing */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888; /* Icon color */
+    z-index: 9999; /* Very high z-index to ensure it's on top */
+    width: 24px; /* Explicit width for clickable area */
+    height: 24px; /* Explicit height for clickable area */
+    display: flex; /* Use flexbox to center SVG */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    /* For debugging, remove this line when done */
+    background-color: rgba(0, 0, 0, 0.1); /* Temporary: to see the clickable area */
+    border-radius: 50%; /* Make it circular for debugging */
+}
+
+.password-toggle svg {
+    width: 20px; /* Icon size */
+    height: 20px; /* Icon size */
+    vertical-align: middle; /* Ensure vertical alignment */
+    transition: fill 0.2s;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM Content Loaded. Initializing password toggles.");
+    // Select all elements with the class 'password-toggle'
+    const passwordToggles = document.querySelectorAll('.password-toggle');
+    console.log("Found password toggles:", passwordToggles.length); // IMPORTANT: Check this number!
+
+    passwordToggles.forEach(function(passwordToggle) {
+        console.log("Found a password toggle element:", passwordToggle); // Log the element itself
+
+        // Get the ID of the target password input from the data-target-input attribute
+        const targetInputId = passwordToggle.getAttribute('data-target-input');
+        const passwordInput = document.getElementById(targetInputId);
+
+        console.log(`Processing toggle for input ID: ${targetInputId}`);
+
+        if (passwordInput) { // Ensure the password input exists for this toggle
+            const eyeOpenIcon = passwordToggle.querySelector('.eye-icon-open');
+            const eyeClosedIcon = passwordToggle.querySelector('.eye-icon-closed');
+
+            console.log(`Input found. Initial type: ${passwordInput.getAttribute('type')}`);
+            console.log("Eye Open Icon:", eyeOpenIcon);
+            console.log("Eye Closed Icon:", eyeClosedIcon);
+
+            // Set initial state based on input type
+            // Default to showing the open eye if input is password (meaning you can click to reveal)
+            // Default to showing the closed eye if input is text (meaning it's already revealed, click to hide)
+            if (passwordInput.getAttribute('type') === 'password') {
+                if (eyeOpenIcon) eyeOpenIcon.style.display = 'block';
+                if (eyeClosedIcon) eyeClosedIcon.style.display = 'none';
+                console.log("Initial state: Input is password, showing open eye.");
+            } else {
+                // If the input type is text (e.g., due to browser autofill or pre-filled value)
+                if (eyeOpenIcon) eyeOpenIcon.style.display = 'none';
+                if (eyeClosedIcon) eyeClosedIcon.style.display = 'block';
+                console.log("Initial state: Input is text, showing closed eye.");
+            }
+
+
+            passwordToggle.addEventListener('click', function(event) {
+                console.log("Password toggle CLICKED!"); // THIS IS THE KEY LOG!
+                event.preventDefault(); // Prevent default button behavior if it's inside a form or other oddities
+                event.stopPropagation(); // Stop event bubbling
+
+                // Toggle the type attribute
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                console.log(`Input type changed to: ${type}`);
+
+                // Toggle the visibility of the SVG icons
+                if (type === 'password') {
+                    if (eyeOpenIcon) eyeOpenIcon.style.display = 'block';
+                    if (eyeClosedIcon) eyeClosedIcon.style.display = 'none';
+                    console.log("Type is now password, showing open eye.");
+                } else {
+                    if (eyeOpenIcon) eyeOpenIcon.style.display = 'none';
+                    if (eyeClosedIcon) eyeClosedIcon.style.display = 'block';
+                    console.log("Type is now text, showing closed eye.");
+                }
+            });
+        } else {
+            console.warn(`Password input with ID '${targetInputId}' NOT FOUND for toggle. Check your HTML IDs.`);
+        }
+    });
+    console.log("Finished initializing password toggles.");
+});
+</script>
