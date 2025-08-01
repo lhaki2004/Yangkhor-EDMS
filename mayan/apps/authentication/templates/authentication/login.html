@@ -7,13 +7,13 @@
 {% load common_tags %}
 {% load smart_settings_tags %}
 
-{% block base_title %}{% trans 'Login' %}{% endblock %}
+{# The line {% block base_title %}{% trans 'Login' %}{% endblock %} should already be removed from here #}
 
 {% block project_name %}{% endblock %}
 
 {% block extra_head %}
     {{ block.super }}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {# Removed Font Awesome CDN link #}
 {% endblock %}
 
 {% block content_plain %}
@@ -30,11 +30,18 @@
                     <label for="id_username">{% trans 'Username:' %}</label>
                     <input type="text" name="username" class="form-control form-control-lg login-input" id="id_username" required>
                 </div>
-                <div class="form-group mb-2 password-container"> {# Added password-container class here #}
+                <div class="form-group mb-2 password-container">
                     <label for="id_password">{% trans 'Password:' %}</label>
                     <input type="password" name="password" class="form-control form-control-lg login-input" id="id_password" required>
                     <span class="password-toggle" id="passwordToggle">
-                        <i class="fas fa-eye"></i> {# Font Awesome eye icon #}
+                        {# SVG for open eye (remains the same) #}
+                        <svg class="eye-icon-open" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 13c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zm0-7c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"/>
+                        </svg>
+                        {# NEW SVG for closed eye / eye-slash #}
+                        <svg class="eye-icon-closed" style="display: none;" viewBox="0 0 256 256" fill="currentColor">
+                            <path d="M230.8877,162.8125a7.99959,7.99959,0,1,1-13.85547,8L198.6499,138.97412a123.56028,123.56028,0,0,1-35.28808,16.27832l5.813,32.96436a8.00173,8.00173,0,0,1-6.48925,9.26855,8.13106,8.13106,0,0,1-1.39942.12207,8.00278,8.00278,0,0,1-7.86914-6.61133l-5.71826-32.42724a136.26072,136.26072,0,0,1-39.4873-.01367l-5.71729,32.42724a8.00272,8.00272,0,0,1-7.86914,6.61231,8.12,8.12,0,0,1-1.39844-.12207,8.00124,8.00124,0,0,1-6.49023-9.26758l5.81445-32.978A123.57956,123.57956,0,0,1,57.3064,138.94531l-18.49,32.02539a7.99959,7.99959,0,1,1-13.85547-8l19.49731-33.77a147.761,147.761,0,0,1-18.68188-19.29834A7.99972,7.99972,0,1,1,38.22168,99.84766a128.70627,128.70627,0,0,0,21.24561,20.92285c.06274.04492.12011.09424.18115.14062A109.59068,109.59068,0,0,0,128,144a109.58952,109.58952,0,0,0,68.3374-23.07861c.05225-.03955.10156-.08155.15528-.11963a128.72532,128.72532,0,0,0,21.28466-20.9541,7.99973,7.99973,0,0,1,12.44532,10.05468,147.78919,147.78919,0,0,1-18.72144,19.333Z"/>
+                        </svg>
                     </span>
                 </div>
                 <div class="d-flex justify-content-end mb-4">
@@ -135,10 +142,17 @@
         top: 70%; /* Vertically center relative to the form-group, which is relative */
         transform: translateY(-50%); /* Fine-tune vertical centering */
         cursor: pointer;
-        font-size: 17px; /* Adjust icon size to match input font-size */
         color: #888; /* Icon color */
         z-index: 10; /* Ensure it's above the input field */
         padding: 4px; /* Increase clickable area */
+    }
+
+    /* Style for the SVG icons within the toggle */
+    .password-toggle svg {
+        width: 17px; /* Matches your previous font-size: 17px */
+        height: 17px; /* Matches your previous font-size: 17px */
+        vertical-align: middle; /* Aligns with text if any, generally good for inline icons */
+        transition: fill 0.2s; /* Smooth transition for color change on hover/state change if you add it */
     }
 
     /* Adjust input padding to prevent text from going under the icon */
@@ -153,20 +167,21 @@
     document.addEventListener('DOMContentLoaded', function() {
         const passwordInput = document.getElementById('id_password');
         const passwordToggle = document.getElementById('passwordToggle');
-        const eyeIcon = passwordToggle.querySelector('i'); // Get the <i> element inside the span
+        const eyeOpenIcon = passwordToggle.querySelector('.eye-icon-open');
+        const eyeClosedIcon = passwordToggle.querySelector('.eye-icon-closed');
 
         passwordToggle.addEventListener('click', function() {
             // Toggle the type attribute
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
 
-            // Toggle the Font Awesome icon classes
+            // Toggle the visibility of the SVG icons
             if (type === 'password') {
-                eyeIcon.classList.remove('fa-eye-slash'); // Remove slash eye
-                eyeIcon.classList.add('fa-eye'); // Add open eye
+                eyeOpenIcon.style.display = 'block'; // Show open eye
+                eyeClosedIcon.style.display = 'none'; // Hide closed eye
             } else {
-                eyeIcon.classList.remove('fa-eye'); // Remove open eye
-                eyeIcon.classList.add('fa-eye-slash'); // Add slash eye
+                eyeOpenIcon.style.display = 'none'; // Hide open eye
+                eyeClosedIcon.style.display = 'block'; // Show closed eye
             }
         });
     });
