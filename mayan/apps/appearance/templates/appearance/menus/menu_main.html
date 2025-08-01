@@ -23,13 +23,22 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading" id="heading-{{ link.name }}" role="tab" >
                                     <h4 class="panel-title">
-                                        <a aria-controls="collapse-{{ link.name }}" aria-expanded="false" class="non-ajax collapsed" data-parent="#accordion-sidebar" data-toggle="collapse" href="#accordion-body-{{ forloop.counter }}" role="button">
-                                            <div class="pull-left">
+                                        <a class="non-ajax collapsed d-flex align-items-center justify-content-between"
+                                            data-parent="#accordion-sidebar"
+                                            data-toggle="collapse"
+                                            href="#accordion-body-{{ forloop.counter }}"
+                                            role="button"
+                                            aria-controls="collapse-{{ link.name }}"
+                                            aria-expanded="false">
+
+                                            <span class="menu-label d-flex align-items-center">
                                                 {% if link.icon %}{{ link.icon.render }}{% endif %}
-                                                {{ link.label }}
-                                            </div>
-                                            <div class="accordion-indicator pull-right"><span class="caret"></span></div>
-                                            <div class="clearfix"></div>
+                                                <span class="menu-text">{{ link.label }}</span>
+                                            </span>
+
+                                            <span class="accordion-indicator">
+                                                <span class="caret"></span>
+                                            </span>
                                         </a>
                                     </h4>
                                 </div>

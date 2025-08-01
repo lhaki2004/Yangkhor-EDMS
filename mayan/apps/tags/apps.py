@@ -197,7 +197,7 @@ class TagsApp(MayanAppConfig):
             )
         )
 
-        menu_main.bind_links(links=(menu_tags,), position=60)
+        menu_main.bind_links(links=(menu_tags,), position=50)
 
         menu_multi_item.bind_links(
             exclude=(DocumentTag,),
