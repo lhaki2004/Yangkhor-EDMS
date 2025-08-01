@@ -353,7 +353,7 @@ a i {
         padding-top: 15px;
         position: fixed;
         right: 0;
-        top: 140px;
+        top: 130px;
         width: 180px;
         z-index: 1000;
     }
@@ -705,4 +705,8 @@ a i {
 /* Hide badge when count is zero */
 .badge-overlay:empty {
     display: none;
+}
+
+.col-xs-12 {
+    width: 93%;
 }
