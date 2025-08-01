@@ -187,6 +187,10 @@ class SourceBackendInteractiveMixin:
     is_interactive = True
 
     def callback(self, document_file, **kwargs):
+        """
+        Callback executed after document file is created.
+        """
+        # Execute wizard step post-upload processing
         DocumentCreateWizardStep.post_upload_process(
             document=document_file.document,
             query_string=kwargs.get('query_string', '')

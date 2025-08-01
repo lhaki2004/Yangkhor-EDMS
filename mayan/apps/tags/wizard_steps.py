@@ -1,3 +1,4 @@
+import logging
 from django.apps import apps
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
@@ -9,12 +10,14 @@ from .forms import TagMultipleSelectionForm
 from .models import Tag
 from .permissions import permission_tag_attach
 
+logger = logging.getLogger(name=__name__)
+
 
 class DocumentCreateWizardStepTags(DocumentCreateWizardStep):
     form_class = TagMultipleSelectionForm
     label = _('Select tags')
     name = 'tag_selection'
-    number = 2
+    number = 2  # Back to original position
 
     @classmethod
     def condition(cls, wizard):
@@ -22,7 +25,7 @@ class DocumentCreateWizardStepTags(DocumentCreateWizardStep):
         return Tag.objects.exists()
 
     @classmethod
-    def get_form_kwargs(self, wizard):
+    def get_form_kwargs(cls, wizard):
         return {
             'help_text': _('Tags to be attached.'),
             'model': Tag,
@@ -51,4 +54,5 @@ class DocumentCreateWizardStepTags(DocumentCreateWizardStep):
             tag.attach_to(document=document)
 
 
-# DocumentCreateWizardStep.register(step=DocumentCreateWizardStepTags)
+# Register the step
+DocumentCreateWizardStep.register(step=DocumentCreateWizardStepTags)
