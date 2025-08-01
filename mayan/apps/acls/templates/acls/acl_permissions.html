@@ -6,6 +6,14 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+<style>
+    .acl-permission-col {
+        max-width: 520px;
+        min-width: 320px;
+        flex: 1 1 350px;
+        border-radius: 10px;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
@@ -17,11 +25,8 @@
     </div>
     <div class="row">
         {% for subtemplate in subtemplates_list %}
-            <div class="{{ subtemplate.column_class }}">
+            <div class="acl-permission-col {{ subtemplate.column_class }}">
                 <div class="card">
-                    <!-- <div class="card-header">
-                        <h5 class="mb-0">{{ subtemplate.context.title }}</h5>
-                    </div> -->
                     <div class="card-body">
                         {% views_render_subtemplate subtemplate.name subtemplate.context as rendered_subtemplate %}
                         {{ rendered_subtemplate|safe }}

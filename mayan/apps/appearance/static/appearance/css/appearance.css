@@ -353,7 +353,7 @@ a i {
         padding-top: 15px;
         position: fixed;
         right: 0;
-        top: 140px;
+        top: 130px;
         width: 180px;
         z-index: 1000;
     }
@@ -795,4 +795,9 @@ a i {
 
 span.menu-text {
     margin-left: -7px;
+}
+
+
+.col-xs-12 {
+    width: 93%;
 }
