@@ -235,3 +235,16 @@ class TagsApp(MayanAppConfig):
             receiver=handler_tag_pre_delete,
             sender=Tag
         )
+
+        # Auto-tagging configuration
+        from django.conf import settings
+        
+        # Set default auto-tagging settings if not already set
+        if not hasattr(settings, 'AUTO_TAG_ENABLED'):
+            settings.AUTO_TAG_ENABLED = True
+        
+        if not hasattr(settings, 'AUTO_TAG_API_URL'):
+            settings.AUTO_TAG_API_URL = 'http://host.docker.internal:8080/predict'
+        
+        if not hasattr(settings, 'AUTO_TAG_TIMEOUT'):
+            settings.AUTO_TAG_TIMEOUT = 30
