@@ -11,13 +11,17 @@
 
 {% block project_name %}{% endblock %}
 
+{% block extra_head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
 {% block content_plain %}
     {% appearance_app_templates template_name='login_content' %}
 
     <div class="login-viewport d-flex align-items-center justify-content-center">
         <div class="login-card-custom p-5">
             <div class="d-flex align-items-center mb-4" style="gap: 0.75rem;">
-                <!-- <i class="fas fa-user-plus fa-2x" style="color: #263238;"></i> -->
                 <h2 class="mb-0" style="font-weight: bold;">{% trans 'Sign in' %}</h2>
             </div>
             <form action="." method="post" class="form login">
@@ -26,9 +30,12 @@
                     <label for="id_username">{% trans 'Username:' %}</label>
                     <input type="text" name="username" class="form-control form-control-lg login-input" id="id_username" required>
                 </div>
-                <div class="form-group mb-2">
+                <div class="form-group mb-2 password-container"> {# Added password-container class here #}
                     <label for="id_password">{% trans 'Password:' %}</label>
                     <input type="password" name="password" class="form-control form-control-lg login-input" id="id_password" required>
+                    <span class="password-toggle" id="passwordToggle">
+                        <i class="fas fa-eye"></i> {# Font Awesome eye icon #}
+                    </span>
                 </div>
                 <div class="d-flex justify-content-end mb-4">
                     {% smart_setting global_name="AUTHENTICATION_DISABLE_PASSWORD_RESET" as setting_disable_password_reset %}
@@ -116,5 +123,53 @@
             font-size: 1.5rem;
         }
     }
+
+    /* New styles for password toggle */
+    .password-container {
+        position: relative;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 15px; /* Adjust based on your input's padding and desired spacing */
+        top: 70%; /* Vertically center relative to the form-group, which is relative */
+        transform: translateY(-50%); /* Fine-tune vertical centering */
+        cursor: pointer;
+        font-size: 17px; /* Adjust icon size to match input font-size */
+        color: #888; /* Icon color */
+        z-index: 10; /* Ensure it's above the input field */
+        padding: 4px; /* Increase clickable area */
+    }
+
+    /* Adjust input padding to prevent text from going under the icon */
+    .password-container .form-control.login-input {
+        padding-right: 2.5rem; /* Make space for the icon */
+    }
     </style>
+
+    {% block extra_body %}
+    {{ block.super }}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('id_password');
+        const passwordToggle = document.getElementById('passwordToggle');
+        const eyeIcon = passwordToggle.querySelector('i'); // Get the <i> element inside the span
+
+        passwordToggle.addEventListener('click', function() {
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            // Toggle the Font Awesome icon classes
+            if (type === 'password') {
+                eyeIcon.classList.remove('fa-eye-slash'); // Remove slash eye
+                eyeIcon.classList.add('fa-eye'); // Add open eye
+            } else {
+                eyeIcon.classList.remove('fa-eye'); // Remove open eye
+                eyeIcon.classList.add('fa-eye-slash'); // Add slash eye
+            }
+        });
+    });
+    </script>
+    {% endblock %}
 {% endblock %}
