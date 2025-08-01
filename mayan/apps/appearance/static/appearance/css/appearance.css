@@ -337,7 +337,7 @@ a i {
 
 #viewport {
     height: 100%;
-    width: 87%;
+    width: 100%;
 }
 
 .has-sidebar {
@@ -353,7 +353,7 @@ a i {
         padding-top: 15px;
         position: fixed;
         right: 0;
-        top: 140px;
+        top: 120px;
         width: 180px;
         z-index: 1000;
     }
